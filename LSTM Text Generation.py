@@ -29,8 +29,10 @@ def build_model(vocab_size, embedding_dim=256, rnn_units=1024, batch_size=64):
         tf.keras.layers.Embedding(vocab_size, embedding_dim, batch_input_shape=[batch_size, None]),
         tf.keras.layers.LSTM(rnn_units, return_sequences=True, stateful=True, recurrent_initializer='glorot_uniform'),
         tf.keras.layers.Dropout(0.1),
+        tf.keras.layers.BatchNormalization(),
         tf.keras.layers.LSTM(rnn_units, return_sequences=True, stateful=True, recurrent_initializer='glorot_uniform'),
         tf.keras.layers.Dropout(0.1),
+        tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Dense(vocab_size)
     ])
     return model
